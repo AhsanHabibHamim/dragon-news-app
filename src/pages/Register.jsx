@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
@@ -19,6 +19,7 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
+        <Navigate to="/"></Navigate>
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -1,12 +1,16 @@
-import React, { useState } from "react";
-import { FaStar, FaRegStar, FaEye, FaShareAlt, FaRegBookmark } from "react-icons/fa";
+import React from "react";
+import { Link } from "react-router";
+import {
+  FaStar,
+  FaRegStar,
+  FaEye,
+  FaShareAlt,
+  FaRegBookmark,
+} from "react-icons/fa";
 
 const NewsCard = ({ news }) => {
-  const { title, rating, total_view, author, thumbnail_url, details } = news;
-
-  const [showFullText, setShowFullText] = useState(false);
-
-  const toggleReadMore = () => setShowFullText(!showFullText);
+  const { id, title, rating, total_view, author, thumbnail_url, details } =
+    news;
 
   // Max stars to display
   const maxStars = 5;
@@ -30,10 +34,10 @@ const NewsCard = ({ news }) => {
             </p>
           </div>
         </div>
-       <div className="flex gap-2 pr-3">
-       <FaRegBookmark className="text-gray-500 hover:text-blue-500 cursor-pointer"></FaRegBookmark>
-       <FaShareAlt className="text-gray-500 hover:text-blue-500 cursor-pointer" />
-       </div>
+        <div className="flex gap-2 pr-3">
+          <FaRegBookmark className="text-gray-500 hover:text-blue-500 cursor-pointer"></FaRegBookmark>
+          <FaShareAlt className="text-gray-500 hover:text-blue-500 cursor-pointer" />
+        </div>
       </div>
 
       {/* Title */}
@@ -52,13 +56,14 @@ const NewsCard = ({ news }) => {
 
       {/* Content */}
       <div className="px-4 pt-3 pb-2 text-sm text-gray-700">
-        {showFullText ? details : `${details.slice(0, 150)}...`}
-        <span
-          onClick={toggleReadMore}
+        {details.split(" ").slice(0, 80).join(" ") +
+          (details.split(" ").length > 80 ? "..." : "")}
+        <Link
+          to={`/news-details/${id}`}
           className="text-red-500 font-medium cursor-pointer ml-1"
         >
-          {showFullText ? " Show Less" : " Read More"}
-        </span>
+          Read More
+        </Link>
       </div>
 
       {/* Footer */}
